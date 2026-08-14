@@ -61,7 +61,13 @@ export function hasApiKey(): boolean {
   return Boolean(API_KEY);
 }
 
-const API_KEY = import.meta.env["VITE_REVENUECAT_IOS_API_KEY"] as string | undefined;
+// RevenueCat iOS public SDK key (publishable — safe in client code).
+// Can be overridden per-build with VITE_REVENUECAT_IOS_API_KEY.
+const DEFAULT_IOS_API_KEY = "appl_FjjpXFIxixSDQVCgXkqwTSSKmVR";
+
+const API_KEY =
+  ((import.meta.env["VITE_REVENUECAT_IOS_API_KEY"] as string | undefined) || "").trim() ||
+  DEFAULT_IOS_API_KEY;
 
 let configurePromise: Promise<boolean> | null = null;
 
