@@ -44,6 +44,23 @@ export class StoreUnavailableError extends Error {
   }
 }
 
+/** Native build without a RevenueCat public API key — purchases cannot start. */
+export class MissingApiKeyError extends Error {
+  constructor() {
+    super("חסר מפתח RevenueCat (VITE_REVENUECAT_IOS_API_KEY) בבנייה");
+    this.name = "MissingApiKeyError";
+  }
+}
+
+/** True when running inside the native iOS shell. */
+export async function isNative(): Promise<boolean> {
+  return (await loadPlugin()) !== null;
+}
+
+export function hasApiKey(): boolean {
+  return Boolean(API_KEY);
+}
+
 const API_KEY = import.meta.env["VITE_REVENUECAT_IOS_API_KEY"] as string | undefined;
 
 let configurePromise: Promise<boolean> | null = null;
