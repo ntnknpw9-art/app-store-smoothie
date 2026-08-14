@@ -96,13 +96,45 @@ function packageToPlan(pkg: {
   };
 }
 
+/**
+ * Preview-only plans. On a real device the prices always come from App Store
+ * via RevenueCat; these mirror the configured store prices so the paywall can
+ * be reviewed (and its layout verified) in the browser preview.
+ */
+const PREVIEW_PLANS: PlanOption[] = [
+  {
+    planId: "yearly",
+    packageIdentifier: "$rc_annual",
+    productIdentifier: YEARLY_PRODUCT_ID,
+    priceString: "‏179.90 ₪",
+    price: 179.9,
+    currencyCode: "ILS",
+    title: "מנוי שנתי",
+  },
+  {
+    planId: "monthly",
+    packageIdentifier: "$rc_monthly",
+    productIdentifier: MONTHLY_PRODUCT_ID,
+    priceString: "‏39.90 ₪",
+    price: 39.9,
+    currencyCode: "ILS",
+    title: "מנוי חודשי",
+  },
+];
+
 /** Loads the default offering plus the current entitlement state. */
 export async function loadSubscriptionState(): Promise<SubscriptionSnapshot> {
   const rc = await loadPlugin();
   const configured = await ensureConfigured();
   if (!rc || !configured) {
-    return { plans: [], isSubscribed: false, renewsAt: null, storeUnavailable: true };
+    return {
+      plans: PREVIEW_PLANS,
+      isSubscribed: false,
+      renewsAt: null,
+      storeUnavailable: true,
+    };
   }
+
 
   const [{ current }, { customerInfo }] = await Promise.all([
     rc.Purchases.getOfferings(),
