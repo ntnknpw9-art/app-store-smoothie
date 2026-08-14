@@ -44,6 +44,23 @@ export class StoreUnavailableError extends Error {
   }
 }
 
+/** Native build without a RevenueCat public API key — purchases cannot start. */
+export class MissingApiKeyError extends Error {
+  constructor() {
+    super("חסר מפתח RevenueCat (VITE_REVENUECAT_IOS_API_KEY) בבנייה");
+    this.name = "MissingApiKeyError";
+  }
+}
+
+/** True when running inside the native iOS shell. */
+export async function isNative(): Promise<boolean> {
+  return (await loadPlugin()) !== null;
+}
+
+export function hasApiKey(): boolean {
+  return Boolean(API_KEY);
+}
+
 const API_KEY = import.meta.env["VITE_REVENUECAT_IOS_API_KEY"] as string | undefined;
 
 let configurePromise: Promise<boolean> | null = null;
@@ -160,6 +177,7 @@ export async function loadSubscriptionState(): Promise<SubscriptionSnapshot> {
 export async function purchasePlan(packageIdentifier: string): Promise<boolean> {
   const rc = await loadPlugin();
   const configured = await ensureConfigured();
+  if (rc && !API_KEY) throw new MissingApiKeyError();
   if (!rc || !configured) throw new StoreUnavailableError();
 
   const { current } = await rc.Purchases.getOfferings();
@@ -174,6 +192,7 @@ export async function purchasePlan(packageIdentifier: string): Promise<boolean> 
 export async function restorePurchases(): Promise<boolean> {
   const rc = await loadPlugin();
   const configured = await ensureConfigured();
+  if (rc && !API_KEY) throw new MissingApiKeyError();
   if (!rc || !configured) throw new StoreUnavailableError();
 
   const { customerInfo } = await rc.Purchases.restorePurchases();

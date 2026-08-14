@@ -7,7 +7,12 @@ import { LegalDisclosure } from "@/components/paywall/LegalDisclosure";
 import { PlanCard } from "@/components/paywall/PlanCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSubscription } from "@/hooks/useSubscription";
-import { MANAGE_SUBSCRIPTIONS_URL, StoreUnavailableError, type PlanId } from "@/lib/revenuecat";
+import {
+  MANAGE_SUBSCRIPTIONS_URL,
+  MissingApiKeyError,
+  StoreUnavailableError,
+  type PlanId,
+} from "@/lib/revenuecat";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -79,7 +84,9 @@ function PaywallPage() {
       if (active) toast.success("המנוי הופעל. תודה!");
       else toast.info("הרכישה לא הושלמה");
     } catch (err) {
-      if (err instanceof StoreUnavailableError) {
+      if (err instanceof MissingApiKeyError) {
+        toast.error("חסר מפתח RevenueCat בבנייה — הוסף VITE_REVENUECAT_IOS_API_KEY והרץ build:ios מחדש");
+      } else if (err instanceof StoreUnavailableError) {
         toast.info("הרכישה זמינה רק באפליקציית ה-iOS המותקנת מ-App Store");
       } else {
         toast.error(err instanceof Error ? err.message : "הרכישה נכשלה");
@@ -94,7 +101,9 @@ function PaywallPage() {
         active ? "הרכישות שוחזרו בהצלחה" : "לא נמצאו רכישות קודמות לשחזור",
       );
     } catch (err) {
-      if (err instanceof StoreUnavailableError) {
+      if (err instanceof MissingApiKeyError) {
+        toast.error("חסר מפתח RevenueCat בבנייה — הוסף VITE_REVENUECAT_IOS_API_KEY");
+      } else if (err instanceof StoreUnavailableError) {
         toast.info("שחזור רכישות זמין רק באפליקציית ה-iOS");
       } else {
         toast.error("שחזור הרכישות נכשל");
