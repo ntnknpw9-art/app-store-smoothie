@@ -11,12 +11,5 @@ export default defineConfig({
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
-    // Static HTML for every page so the Capacitor (iOS) build can serve the app
-    // from dist/client without a Node/Worker server.
-    prerender: {
-      enabled: true,
-      crawlLinks: true,
-    },
-    pages: [{ path: "/" }, { path: "/terms" }, { path: "/privacy" }],
   },
 });
