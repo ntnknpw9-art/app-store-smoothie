@@ -177,6 +177,7 @@ export async function loadSubscriptionState(): Promise<SubscriptionSnapshot> {
 export async function purchasePlan(packageIdentifier: string): Promise<boolean> {
   const rc = await loadPlugin();
   const configured = await ensureConfigured();
+  if (rc && !API_KEY) throw new MissingApiKeyError();
   if (!rc || !configured) throw new StoreUnavailableError();
 
   const { current } = await rc.Purchases.getOfferings();
@@ -191,6 +192,7 @@ export async function purchasePlan(packageIdentifier: string): Promise<boolean> 
 export async function restorePurchases(): Promise<boolean> {
   const rc = await loadPlugin();
   const configured = await ensureConfigured();
+  if (rc && !API_KEY) throw new MissingApiKeyError();
   if (!rc || !configured) throw new StoreUnavailableError();
 
   const { customerInfo } = await rc.Purchases.restorePurchases();
