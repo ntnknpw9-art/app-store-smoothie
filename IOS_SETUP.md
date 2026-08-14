@@ -1,3 +1,17 @@
+
+## בנייה ל-iOS (חשוב!)
+
+לאפליקציה הנייטיב יש בנייה סטטית נפרדת:
+
+```bash
+npm run build:ios
+npx cap sync ios
+npx cap open ios
+```
+
+אל תשתמש ב-`npm run build` עבור Capacitor — הוא בונה גרסת שרת (SSR) בלי index.html.
+`npm run build:ios` יוצר את התיקייה `www/` שאותה Capacitor טוען.
+
 # הפעלת המנויים באפליקציית iOS
 
 1. ייצא את הפרויקט ל-GitHub, שכפל למחשב והרץ:
