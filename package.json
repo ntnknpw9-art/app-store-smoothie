@@ -9,7 +9,8 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build:ios": "vite build --config vite.native.config.ts && node -e \"require('fs').renameSync('www/index.native.html','www/index.html')\""
   },
   "dependencies": {
     "@capacitor/core": "^8.5.0",
