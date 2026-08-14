@@ -86,6 +86,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#141821" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { title: "מנוי Premium — חודשי או שנתי" },
+      { property: "og:title", content: "מנוי Premium — חודשי או שנתי" },
+      { name: "twitter:title", content: "מנוי Premium — חודשי או שנתי" },
+      { name: "description", content: "שדרגו ל-Premium: גישה מלאה לכל הכלים, ללא פרסומות וללא הגבלה. מנוי חודשי או שנתי, ניתן לביטול בכל עת דרך הגדרות Apple ID." },
+      { property: "og:description", content: "שדרגו ל-Premium: גישה מלאה לכל הכלים, ללא פרסומות וללא הגבלה. מנוי חודשי או שנתי, ניתן לביטול בכל עת דרך הגדרות Apple ID." },
+      { name: "twitter:description", content: "שדרגו ל-Premium: גישה מלאה לכל הכלים, ללא פרסומות וללא הגבלה. מנוי חודשי או שנתי, ניתן לביטול בכל עת דרך הגדרות Apple ID." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/202ede0378ac151d93526682c00572cb/id-preview-c8efd052--99b4f8c4-99da-4fcc-bad2-470eab638ad8.lovable.app-1786712605596.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/202ede0378ac151d93526682c00572cb/id-preview-c8efd052--99b4f8c4-99da-4fcc-bad2-470eab638ad8.lovable.app-1786712605596.png" },
     ],
     links: [
       {

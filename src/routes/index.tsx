@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "מנוי Premium — חודשי או שנתי" },
       {
         property: "og:description",
-        content: "גישה מלאה לכל הכלים, ללא פרסומות. חידוש אוטומטי, ניתן לביטול בכל עת.",
+        content: "שדרגו ל-Premium: גישה מלאה לכל הכלים, ללא פרסומות וללא הגבלה. מנוי חודשי או שנתי, ניתן לביטול בכל עת דרך הגדרות Apple ID.",
       },
     ],
   }),
