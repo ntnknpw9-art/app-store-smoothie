@@ -170,22 +170,30 @@ function PaywallPage() {
           ) : isSubscribed ? (
             <ActiveState renewsAt={renewsAt} />
           ) : plans.length ? (
-            <div role="radiogroup" aria-label="תוכניות מנוי" className="space-y-3">
-              {plans.map((plan) => (
-                <PlanCard
-                  key={plan.packageIdentifier}
-                  plan={plan}
-                  selected={plan.planId === selected}
-                  onSelect={() => setSelected(plan.planId)}
-                  {...(plan.planId === "yearly"
-                    ? { savingPercent, perMonthNote }
-                    : {})}
-                />
-              ))}
-            </div>
+            <>
+              <div role="radiogroup" aria-label="תוכניות מנוי" className="space-y-3">
+                {plans.map((plan) => (
+                  <PlanCard
+                    key={plan.packageIdentifier}
+                    plan={plan}
+                    selected={plan.planId === selected}
+                    onSelect={() => setSelected(plan.planId)}
+                    {...(plan.planId === "yearly"
+                      ? { savingPercent, perMonthNote }
+                      : {})}
+                  />
+                ))}
+              </div>
+              {storeUnavailable ? (
+                <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">
+                  תצוגה מקדימה בדפדפן — המחירים הסופיים נטענים מ-App Store באפליקציית ה-iOS.
+                </p>
+              ) : null}
+            </>
           ) : (
             <StoreUnavailableState unavailable={storeUnavailable} onRetry={refresh} />
           )}
+
         </section>
 
         {!isSubscribed ? (
